@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "dotenv -e .env.local next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "dotenv-cli": "^7.4.2",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.9.0",
     "googleapis": "^140.0.0",

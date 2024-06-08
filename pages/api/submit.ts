@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {google} from "googleapis"
+import {myProd} from "@/constants";
 
 type SheetForm = {
     date: any,
@@ -11,7 +12,7 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if (req.method !== 'POST') {
-        return res.status(405).send({message: 'Seul les requetes POST sont autorisés'})
+        return res.status(405).send({message: 'Seul les requêtes POST sont autorisés'})
     }
     const body = req.body as SheetForm
 
@@ -19,8 +20,8 @@ export default async function handler(
         const auth = new google.auth.GoogleAuth(
             {
                 credentials: {
-                    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-                    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+                    client_email: myProd.GOOGLE_CLIENT_EMAIL,
+                    private_key: myProd.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
                 },
                 scopes: [
                     'https://www.googleapis.com/auth/drive',
@@ -34,14 +35,16 @@ export default async function handler(
             version: 'v4'
         });
         const response = await sheets.spreadsheets.values.append({
-            spreadsheetId: process.env.GOOGLE_SHEET_ID,
+            spreadsheetId: myProd.GOOGLE_SHEET_ID,
             range: 'A1:C1',
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [
-                   [ body.date,
-                    body.name,
-                    body.chassis]
+                    [
+                        body.date,
+                        body.name,
+                        body.chassis
+                    ]
                 ]
             }
         })
