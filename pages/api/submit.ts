@@ -13,6 +13,9 @@ export default async function handler(
     if (req.method !== 'POST') {
         return res.status(405).send({message: 'Seul les requêtes POST sont autorisés'})
     }
+    console.log('GOOGLE_CLIENT_EMAIL:', process.env.GOOGLE_CLIENT_EMAIL);
+    console.log('GOOGLE_PRIVATE_KEY:', process.env.GOOGLE_PRIVATE_KEY);
+    console.log('GOOGLE_SHEET_ID:', process.env.GOOGLE_SHEET_ID);
     const body = req.body as SheetForm
 
     try {
