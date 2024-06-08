@@ -27,7 +27,6 @@ export default function Home() {
       body: JSON.stringify(form)
     })
     const content = await response.json();
-    alert(content.data.tableRange)
     {notify()}
     date=''
     setName('')
