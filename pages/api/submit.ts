@@ -1,6 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {google} from "googleapis"
-import {myProd} from "@/constants";
 
 type SheetForm = {
     date: any,
@@ -35,7 +34,7 @@ export default async function handler(
             version: 'v4'
         });
         const response = await sheets.spreadsheets.values.append({
-            spreadsheetId: myProd.GOOGLE_SHEET_ID,
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
             range: 'A1:C1',
             valueInputOption: 'USER_ENTERED',
             requestBody: {
